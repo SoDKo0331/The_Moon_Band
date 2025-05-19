@@ -1,11 +1,449 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TheMoonBand</title>
-</head>
-<body>
-    
-</body>
+    <meta
+      name="description"
+      content="Тэнгэрийн Хамтлагийн албан ёсны вэб сайт"
+    />
+    <meta
+      name="keywords"
+      content="Тэнгэрийн Хамтлаг, Монгол, хөгжмийн хамтлаг"
+    />
+    <meta name="author" content="Тэнгэрийн Хамтлаг" />
+    <link rel="icon" href="./images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="./css/home.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="preloader">
+      <div class="loader"></div>
+    </div>
+
+    <header class="site-header">
+      <div class="container">
+        <div class="logo">ТЭНГЭРИЙН ХАМТЛАГ</div>
+        <nav class="main-nav">
+          <ul class="nav-links">
+            <li><a href="#home" class="active">НҮҮР</a></li>
+            <li><a href="#tours">ТОГЛОЛТУУД</a></li>
+            <li><a href="#albums">ЦОМГУУД</a></li>
+            <li><a href="#videos">КЛИПҮҮД</a></li>
+            <li><a href="#photos">ГЭРЭЛ ЗУРАГ</a></li>
+            <li><a href="#contact">ХОЛБОО БАРИХ</a></li>
+          </ul>
+        </nav>
+        <button
+          class="dark-mode-toggle"
+          id="theme-toggle"
+          aria-label="Гэрэл/Харанхуй горим"
+        >
+          <div class="dark-mode-toggle-icon"></div>
+        </button>
+
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>ТАЙВШРАЛ + ГЭРЭЛ</h1>
+            <div class="release-info">ШИНЭ ЦОМОГ ГАРЛАА</div>
+            <a href="#" class="btn">СОНСОХ</a>
+          </div>
+        </div>
+        <div class="scroll-down">
+          <div class="mouse">
+            <div class="wheel"></div>
+          </div>
+          <div>
+            <span class="scroll-text">ДООШ ГҮЙЛГЭ</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="latest-release">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">ШИНЭ БҮТЭЭЛ</span>
+            <h2>ГЭРЭЛ</h2>
+          </div>
+          <div class="release-container">
+            <div class="release-cover">
+              <img src="images/light-cover.jpg" alt="Гэрэл" />
+              <div class="play-button">
+                <span class="play-icon">▶</span>
+              </div>
+            </div>
+            <div class="release-details">
+              <p>
+                Бидний хамгийн сүүлийн үеийн цомгийн нэр дуу "Гэрэл" нь орчлон
+                ертөнцийг үл мэдэгдэх замаар холбодог харанхуйн дараа ирэх
+                гэрлийн тухай. Таны зүрх сэтгэлд гүн шингэх энэхүү дуу нь орчин
+                үеийн хөгжмийн шинэ туршилт болон уламжлалт монгол аялгууг
+                хослуулсан өвөрмөц бүтээл юм.
+              </p>
+              <div class="streaming-links">
+                <a href="#" class="stream-link">SPOTIFY</a>
+                <a href="#" class="stream-link">APPLE MUSIC</a>
+                <a href="#" class="stream-link">YOUTUBE</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tour-dates" id="tours">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">ХААНА ТОГЛОХ ВЭ</span>
+            <h2>ТОГЛОЛТУУД</h2>
+          </div>
+          <div class="tour-list">
+            <div class="tour-item">
+              <div class="tour-date">
+                <span class="day">04</span>
+                <span class="month">4-Р САР</span>
+              </div>
+              <div class="tour-venue">
+                <h3>КультурШустерай</h3>
+                <p>Бармштедт, Герман</p>
+              </div>
+              <div class="tour-action">
+                <span class="tour-time">20:00</span>
+                <a href="#" class="btn-tickets">ТАСАЛБАР</a>
+              </div>
+            </div>
+
+            <div class="tour-item">
+              <div class="tour-date">
+                <span class="day">09</span>
+                <span class="month">5-Р САР</span>
+              </div>
+              <div class="tour-venue">
+                <h3>Резорт Марк Бранденбург</h3>
+                <p>Нойруппин, Герман</p>
+              </div>
+              <div class="tour-action">
+                <span class="tour-time">21:00</span>
+                <a href="#" class="btn-tickets">ТАСАЛБАР</a>
+              </div>
+            </div>
+
+            <div class="tour-item">
+              <div class="tour-date">
+                <span class="day">10</span>
+                <span class="month">5-Р САР</span>
+              </div>
+              <div class="tour-venue">
+                <h3>Гастхаус Дамелак</h3>
+                <p>Хавелберг, Герман</p>
+              </div>
+              <div class="tour-action">
+                <span class="tour-time">20:00</span>
+                <a href="#" class="btn-tickets">ТАСАЛБАР</a>
+              </div>
+            </div>
+
+            <div class="tour-item">
+              <div class="tour-date">
+                <span class="day">28</span>
+                <span class="month">6-Р САР</span>
+              </div>
+              <div class="tour-venue">
+                <h3>Хорнс Эрбен</h3>
+                <p>Лейпциг, Герман</p>
+              </div>
+              <div class="tour-action">
+                <span class="tour-time">20:00</span>
+                <a href="#" class="btn-tickets">ТАСАЛБАР</a>
+              </div>
+            </div>
+          </div>
+          <div class="tour-more">
+            <a href="#" class="btn btn-outline">БҮХ ТОГЛОЛТУУД</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="album-showcase" id="albums">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">ШИНЭ ЦОМОГ</span>
+            <h2>ТАЙВШРАЛ + ГЭРЭЛ</h2>
+          </div>
+          <div class="album-container">
+            <div class="album-cover">
+              <img src="images/album-cover.jpg" alt="Тайвшрал + Гэрэл" />
+            </div>
+            <div class="album-info">
+              <div class="album-tracklist">
+                <div class="track">
+                  <span class="track-number">01</span>
+                  <span class="track-name">Тэнгэрийн Гэрэл</span>
+                  <span class="track-duration">4:20</span>
+                </div>
+                <div class="track">
+                  <span class="track-number">02</span>
+                  <span class="track-name">Мөнхийн Замаар</span>
+                  <span class="track-duration">3:45</span>
+                </div>
+                <div class="track">
+                  <span class="track-number">03</span>
+                  <span class="track-name">Тайвшрал</span>
+                  <span class="track-duration">5:12</span>
+                </div>
+                <div class="track">
+                  <span class="track-number">04</span>
+                  <span class="track-name">Хязгааргүй</span>
+                  <span class="track-duration">3:58</span>
+                </div>
+                <div class="track">
+                  <span class="track-number">05</span>
+                  <span class="track-name">Хотын Шөнө</span>
+                  <span class="track-duration">4:34</span>
+                </div>
+                <div class="track">
+                  <span class="track-number">06</span>
+                  <span class="track-name">Салхи</span>
+                  <span class="track-duration">4:02</span>
+                </div>
+              </div>
+              <div class="album-links">
+                <a href="#" class="btn">СОНСОХ</a>
+                <a href="#" class="btn btn-outline">CD/ВИНИЛ ЗАХИАЛАХ</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band-members">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">БИДНИЙ ТУХАЙ</span>
+            <h2>ГИШҮҮД</h2>
+          </div>
+          <div class="members-grid">
+            <div class="member-card">
+              <div class="member-photo">
+                <img src="images/member1.jpg" alt="Батболд" />
+              </div>
+              <h3>БАТБОЛД</h3>
+              <p>ДУУЧИН, ГИТАР</p>
+            </div>
+
+            <div class="member-card">
+              <div class="member-photo">
+                <img src="images/member2.jpg" alt="Нямаа" />
+              </div>
+              <h3>НЯМАА</h3>
+              <p>ГИТАР</p>
+            </div>
+
+            <div class="member-card">
+              <div class="member-photo">
+                <img src="images/member3.jpg" alt="Дулмаа" />
+              </div>
+              <h3>ДУЛМАА</h3>
+              <p>БӨМБӨР</p>
+            </div>
+
+            <div class="member-card">
+              <div class="member-photo">
+                <img src="images/member4.jpg" alt="Баярмаа" />
+              </div>
+              <h3>БАЯРМАА</h3>
+              <p>ХӨГЖИМ</p>
+            </div>
+
+            <div class="member-card">
+              <div class="member-photo">
+                <img src="images/member5.jpg" alt="Гантулга" />
+              </div>
+              <h3>ГАНТУЛГА</h3>
+              <p>БАС ГИТАР</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-band">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">ТАНИЛЦУУЛГА</span>
+            <h2>ТЭНГЭРИЙН ХАМТЛАГ</h2>
+          </div>
+          <div class="about-content">
+            <div class="about-image">
+              <img src="images/band-photo.jpg" alt="Тэнгэрийн Хамтлаг" />
+            </div>
+            <div class="about-text">
+              <p>
+                Кино дууны мэдрэмжтэй поп, тархи эргүүлсэн хөгжмийн хийцлэл
+                болон өвөрмөц дуу хоолойгоороо онцлог "Тэнгэрийн Хамтлаг" нь
+                Монголын электропоп хөгжмийн тавцанд шинэ ирээдүйг бүтээгч хүчин
+                болж чадсан. 5 гишүүнтэй энэхүү хамтлаг 2019 онд үүсгэн
+                байгуулагдаж, өдгөө олон улсын тавцанд амжилттай алхаж байна.
+              </p>
+              <p>
+                Тэдний хөгжим нь уламжлалт монгол аялгуу, олон улсын электроник
+                хөгжимтэй хослуулсан өвөрмөц хэв маягтай бөгөөд сонсогчдын зүрх
+                сэтгэлд гүн шингэдэг. Тэнгэрийн Хамтлаг нь Монголын соёл, орчин
+                үеийн хөгжмийн хил хязгаарыг тэлж, дэлхийн сонсогчдод монгол
+                хөгжмийн үзэсгэлэнт шинэ талыг танилцуулж байна.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="newsletter" id="contact">
+        <div class="container">
+          <div class="section-title">
+            <h2>МЭДЭЭЛЛИЙН ЗАХИДАЛ</h2>
+            <p>
+              Тоглолт, шинэ гаралт, ховор мэдээллийг эхлээд авахын тулд
+              бүртгүүлээрэй
+            </p>
+          </div>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Таны и-мэйл" required />
+            <button type="submit" class="btn">БҮРТГҮҮЛЭХ</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="instagram-feed" id="photos">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">ИНСТАГРАМ</span>
+            <h2>@TENGERIINBAND</h2>
+          </div>
+          <div class="instagram-grid">
+            <a href="#" class="instagram-item">
+              <img src="images/insta1.jpg" alt="Instagram Post 1" />
+            </a>
+            <a href="#" class="instagram-item">
+              <img src="images/insta2.jpg" alt="Instagram Post 2" />
+            </a>
+            <a href="#" class="instagram-item">
+              <img src="images/insta3.jpg" alt="Instagram Post 3" />
+            </a>
+            <a href="#" class="instagram-item">
+              <img src="images/insta4.jpg" alt="Instagram Post 4" />
+            </a>
+            <a href="#" class="instagram-item">
+              <img src="images/insta5.jpg" alt="Instagram Post 5" />
+            </a>
+            <a href="#" class="instagram-item">
+              <img src="images/insta6.jpg" alt="Instagram Post 6" />
+            </a>
+          </div>
+          <div class="instagram-follow">
+            <a href="#" class="btn btn-outline">ДАГАХ</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-logo">ТЭНГЭРИЙН ХАМТЛАГ</div>
+          <div class="social-links">
+            <a href="#" class="social-link">SPOTIFY</a>
+            <a href="#" class="social-link">YOUTUBE</a>
+            <a href="#" class="social-link">INSTAGRAM</a>
+            <a href="#" class="social-link">FACEBOOK</a>
+          </div>
+        </div>
+        <div class="footer-middle">
+          <div class="footer-nav">
+            <a href="#">НҮҮР</a>
+            <a href="#">ТОГЛОЛТУУД</a>
+            <a href="#">ЦОМГУУД</a>
+            <a href="#">КЛИПҮҮД</a>
+            <a href="#">ГЭРЭЛ ЗУРАГ</a>
+            <a href="#">ХОЛБОО БАРИХ</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div class="contact-info">
+            <p>ДУУДЛАГА: booking@themoonband.com</p>
+            <p>ХЭВЛЭЛ МЭДЭЭЛЭЛ: press@themoonband.com</p>
+          </div>
+          <div class="copyright">
+            <p>&copy; 2025 ТЭНГЭРИЙН ХАМТЛАГ. БҮХ ЭРХ ХАМГААЛАГДСАН.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Preloader
+        setTimeout(function () {
+          document.querySelector(".preloader").style.opacity = "0";
+          setTimeout(function () {
+            document.querySelector(".preloader").style.display = "none";
+          }, 500);
+        }, 1000);
+
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+
+        hamburger.addEventListener("click", function () {
+          this.classList.toggle("active");
+          navLinks.classList.toggle("active");
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Preloader
+        setTimeout(function () {
+          document.querySelector(".preloader").style.opacity = "0";
+          setTimeout(function () {
+            document.querySelector(".preloader").style.display = "none";
+          }, 500);
+        }, 1000);
+
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector(".nav-links");
+        hamburger.addEventListener("click", function () {
+          this.classList.toggle("active");
+          navLinks.classList.toggle("active");
+        });
+
+        // Dark Mode Toggle
+        const toggle = document.getElementById("theme-toggle");
+        toggle.addEventListener("click", () => {
+          document.body.classList.toggle("dark-mode");
+          localStorage.setItem(
+            "theme",
+            document.body.classList.contains("dark-mode") ? "dark" : "light"
+          );
+        });
+
+        // On load, check saved theme
+        if (localStorage.getItem("theme") === "dark") {
+          document.body.classList.add("dark-mode");
+        }
+      });
+    </script>
+  </body>
 </html>

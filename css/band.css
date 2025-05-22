@@ -1,0 +1,312 @@
+/* Band Members Section */
+.band-members {
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.band-members::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Section Title */
+.section-title {
+  text-align: center;
+  margin-bottom: 80px;
+  position: relative;
+}
+
+.title-small {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #ffffff;
+  margin-bottom: 15px;
+  position: relative;
+  padding: 0 30px;
+}
+
+.title-small::before,
+.title-small::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+}
+
+.title-small::before {
+  left: 0;
+}
+
+.title-small::after {
+  right: 0;
+}
+
+.section-title h2 {
+  font-size: 48px;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffffff, transparent);
+}
+
+/* Members Grid */
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  justify-items: center;
+}
+
+/* Member Card */
+.member-card {
+  width: 320px;
+  height: 450px;
+  perspective: 1000px;
+  position: relative;
+}
+
+.member-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.member-card:hover .member-card-inner {
+  transform: rotateY(180deg);
+}
+
+.member-front,
+.member-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.member-front {
+  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.member-front::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.02) 50%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.member-back {
+  background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+/* Member Photo */
+.member-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 30px;
+  position: relative;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 0 30px rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.member-photo::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #ffffff, transparent, #ffffff);
+  z-index: -1;
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.member-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.member-card:hover .member-photo img {
+  transform: scale(1.1);
+}
+
+/* Member Text */
+.member-front h3,
+.member-back h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1b1919;
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.member-front p {
+  font-size: 14px;
+  color: #cccccc;
+  margin: 0;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+.member-back p {
+  font-size: 16px;
+  color: #000000;
+  line-height: 1.6;
+  margin: 0 0 30px 0;
+  font-weight: 300;
+}
+
+/* Social Icons */
+.member-socials {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.social-icon {
+  width: 45px;
+  height: 45px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(46, 6, 6, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.social-icon:hover {
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.social-icon:hover::before {
+  left: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .band-members {
+    padding: 60px 0;
+  }
+  
+  .section-title {
+    margin-bottom: 50px;
+  }
+  
+  .section-title h2 {
+    font-size: 36px;
+  }
+  
+  .members-grid {
+    gap: 30px;
+  }
+  
+  .member-card {
+    width: 280px;
+    height: 400px;
+  }
+  
+  .member-photo {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .member-front h3,
+  .member-back h3 {
+    font-size: 20px;
+  }
+}

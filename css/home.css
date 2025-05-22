@@ -1,11 +1,9 @@
-/* Global Reset & Base Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
-
 :root {
   --primary-color: #1a1a1a;
   --secondary-color: #f8f8f8;
@@ -27,7 +25,6 @@
   --text-secondary: #1a1a1a;
   --border-color: #dddddd;
   --hover-color: #cccccc;
-  
 }
 
 body {
@@ -70,6 +67,7 @@ body {
 
 /* Container */
 .container {
+  
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
@@ -221,39 +219,6 @@ body {
 .dark-mode .dark-mode-toggle-icon {
   background-color: var(--primary-color);
   box-shadow: inset -3px -3px 0px var(--text-secondary);
-}
-
-/* Mobile Menu */
-.hamburger {
-  display: none;
-  cursor: pointer;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 20px;
-  position: absolute;
-  right: 0;
-}
-
-.hamburger span {
-  display: block;
-  height: 3px;
-  width: 100%;
-  background-color: var(--text-secondary);
-  border-radius: 3px;
-  transition: var(--transition);
-}
-
-.hamburger.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Hero Section */
@@ -1156,82 +1121,163 @@ section {
   font-size: 14px;
   opacity: 0.7;
 }
-
+/* Mobile Styles */
 @media (max-width: 768px) {
   .site-header .container {
     justify-content: space-between;
   }
-
+  
+  /* Hamburger Menu */
   .hamburger {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 1001;
   }
-
+  
+  .hamburger span {
+    height: 3px;
+    width: 100%;
+    background-color: var(--text-secondary);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  /* Hamburger Animation */
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
+  /* Mobile Navigation */
   .main-nav {
     position: absolute;
+    border-radius: 16px;
     top: 100%;
     left: 0;
     width: 100%;
     background-color: var(--primary-color);
     padding: 20px 0;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-    transition: var(--transition);
+    overflow: hidden;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
-
-  .nav-links {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .nav-links li {
-    margin: 10px 0;
-  }
-
+  
   .main-nav.active {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
-
-  .dark-mode-toggle {
-    right: 50px;
+  
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
   }
-
+  
+  .nav-links li {
+    margin: 10px 0;
+    list-style: none;
+  }
+  
+  .nav-links a {
+    font-size: 18px;
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+  }
+  
+  /* Prevent body scroll when menu is open */
+  body.menu-open {
+    overflow: hidden;
+  }
+  
+  /* Dark mode toggle positioning */
+  .dark-mode-toggle {
+    right: 70px;
+  }
+  
+  /* Hero Section */
   .hero-text h1 {
     font-size: 32px;
   }
-
+  
+  /* Tour Items */
   .tour-item {
     flex-direction: column;
     text-align: center;
     gap: 10px;
   }
-
+  
   .tour-date,
   .tour-venue,
   .tour-action {
     width: 100%;
     text-align: center;
   }
-
+  
   .tour-action {
     margin-top: 10px;
   }
-
+  
+  /* Newsletter Form */
   .newsletter-form {
     flex-direction: column;
   }
-
+  
+  /* Footer */
   .footer-top,
   .footer-bottom {
     flex-direction: column;
     text-align: center;
   }
-
+  
   .social-links {
     justify-content: center;
     margin-top: 20px;
   }
 }
-
+/* Desktop Styles - Hide hamburger menu */
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+  
+  .main-nav {
+    position: static;
+    clip-path: none;
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+  }
+  
+  .nav-links {
+    flex-direction: row;
+    gap: 2rem;
+  }
+  
+  .nav-links li {
+    margin: 0;
+  }
+}
 /* --- CUSTOM RESPONSIVE IMPROVEMENTS --- */
 @media (max-width: 480px) {
   .hero-text h1 {

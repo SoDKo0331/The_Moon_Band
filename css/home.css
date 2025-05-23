@@ -4,6 +4,13 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+html {
+  scroll-behavior: smooth;
+}
+html, body {
+  overflow-x: hidden; 
+  overflow-y: auto;
+}
 :root {
   --primary-color: #1a1a1a;
   --secondary-color: #f8f8f8;

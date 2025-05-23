@@ -441,6 +441,7 @@
           </div>
           <div class="about-content">
             <div class="about-image">
+              <img src="images/bandpicture2.jpg" alt="Moonband" />
             </div>
             <div class="about-text">
               <p>
@@ -464,28 +465,31 @@
             >
           </div>
           <div class="instagram-grid">
-            <a href="#" class="instagram-item">
-              <img src="images/bandpicture.jpg" />
+            <a href="#" class="instagram-item" onclick="openModal(); return false;">
+            <img src="images/in1.jpg" alt="Band Picture" />
             </a>
-            <a href="#" class="instagram-item">
-              <img src="images/in1.jpg" alt="Instagram Post 2" />
+            <a href="#" class="instagram-item" onclick="openModal(); return false;">
+            <img src="images/in2.jpg" alt="Band Picture" />
             </a>
-            <a href="#" class="instagram-item">
-              <img src="images/in2.jpg" alt="Instagram Post 3" />
+            <a href="#" class="instagram-item" onclick="openModal(); return false;">
+            <img src="images/in3.jpg" alt="Band Picture" />
             </a>
-            <a href="#" class="instagram-item">
-              <img src="images/in3.jpg" alt="Instagram Post 4" />
+            <a href="#" class="instagram-item" onclick="openModal(); return false;">
+            <img src="images/band.jpeg" alt="Band Picture" />
             </a>
-            <a href="#" class="instagram-item">
-              <img src="images/bandcover.PNG" alt="Instagram Post 5" />
+            <a href="#" class="instagram-item" onclick="openModal(); return false;">
+            <img src="images/bandpicture.jpg" alt="Band Picture" />
             </a>
+            <div id="modal" class="modal" onclick="closeModal()">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImage">
+            </div>
           </div>
           <div class="instagram-follow">
             <a
               href="https://www.instagram.com/the.moonband/?hl=en"
               class="btn btn-outline"
-              >ДАГАХ</a
-            >
+              >ДАГАХ</a>
           </div>
         </div>
       </section>
@@ -610,6 +614,17 @@
       });
     });
   </script>
+  <script>
+  function openModal() {
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById('modalImage').src = 'images/bandpicture.jpg';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+</script>
+
   <script>
   document.addEventListener("DOMContentLoaded", function () {
     const videoItems = document.querySelectorAll(".video-item");

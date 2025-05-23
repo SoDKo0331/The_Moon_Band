@@ -92,7 +92,7 @@
           </div>
           <div class="release-container">
             <div class="release-cover">
-              <img src="images/bandpicture2.jpg" alt="Гэрэл" />
+              <img src="images/banddoor.jpg" alt="Гэрэл" />
             </div>
             <div class="release-details">
               <p>
@@ -459,22 +459,23 @@
             >
           </div>
           <div class="instagram-grid">
-            <a href="#" class="instagram-item" onclick="openModal(); return false;">
-            <img src="images/in1.jpg" alt="Band Picture" />
-            </a>
-            <a href="#" class="instagram-item" onclick="openModal(); return false;">
-            <img src="images/in3.jpg" alt="Band Picture" />
-            </a>
-            <a href="#" class="instagram-item" onclick="openModal(); return false;">
-            <img src="images/band.jpeg" alt="Band Picture" />
-            </a>
-            <a href="#" class="instagram-item" onclick="openModal(); return false;">
-            <img src="images/bandpicture.jpg" alt="Band Picture" />
-            </a>
-            <div id="modal" class="modal" onclick="closeModal()">
-            <span class="close">&times;</span>
-            <img class="modal-content" id="modalImage">
-            </div>
+          <a href="#" class="instagram-item" onclick="openModal('images/in1.jpg'); return false;">
+          <img src="images/in1.jpg" alt="Band Picture" />
+          </a>
+          <a href="#" class="instagram-item" onclick="openModal('images/in3.jpg'); return false;">
+          <img src="images/in3.jpg" alt="Band Picture" />
+          </a>
+          <a href="#" class="instagram-item" onclick="openModal('images/band.jpeg'); return false;">
+          <img src="images/band.jpeg" alt="Band Picture" />
+          </a>
+          <a href="#" class="instagram-item" onclick="openModal('images/bandpicture.jpg'); return false;">
+          <img src="images/bandpicture.jpg" alt="Band Picture" />
+          </a>
+
+          <div id="modal" class="modal" onclick="closeModal()">
+          <span class="close">&times;</span>
+          <img class="modal-content" id="modalImage">
+          </div>
           </div>
           <div class="instagram-follow">
             <a
@@ -606,9 +607,9 @@
     });
   </script>
   <script>
-  function openModal() {
+  function openModal(imageSrc) {
     document.getElementById('modal').style.display = 'block';
-    document.getElementById('modalImage').src = 'images/bandpicture.jpg';
+    document.getElementById('modalImage').src = imageSrc;
   }
 
   function closeModal() {

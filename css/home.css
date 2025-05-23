@@ -785,10 +785,11 @@ section {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.15s;
+  transition: transform 0.8s ease;
   transform-style: preserve-3d;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
+  display: block;
 }
 
 .member-front,
@@ -811,12 +812,14 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  backface-visibility: hidden;
 }
 
 .member-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  backface-visibility: hidden;
 }
 
 .member-front h3 {

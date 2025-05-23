@@ -108,6 +108,7 @@
   transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform-style: preserve-3d;
   cursor: pointer;
+  backface-visibility: hidden;
 }
 
 .member-card:hover .member-card-inner {
@@ -122,6 +123,7 @@
   backface-visibility: hidden;
   border-radius: 20px;
   overflow: hidden;
+  backface-visibility: hidden;
 }
 
 .member-front {

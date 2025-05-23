@@ -23,3 +23,12 @@
   color: white;
   cursor: pointer;
 }
+
+#utas {
+  align-self: start;
+    text-decoration: none;
+
+}
+a {
+  text-decoration: none;
+}

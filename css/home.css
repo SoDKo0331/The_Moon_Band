@@ -811,7 +811,6 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  backface-visibility: hidden;
 }
 
 .member-photo img {

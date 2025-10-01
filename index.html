@@ -1,810 +1,672 @@
 <!DOCTYPE html>
 <html lang="mn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TheMoonBand</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-secondary: #111111;
-            --text-primary: #ffffff;
-            --text-secondary: #999999;
-            --accent: #6366f1;
-            --accent-hover: #7c3aed;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Preloader */
-        .preloader {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            animation: fadeOut 0.5s ease 1.5s forwards;
-        }
-
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(99, 102, 241, 0.1);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeOut {
-            to { opacity: 0; visibility: hidden; }
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 1.5rem 5%;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            padding: 1rem 5%;
-            background: rgba(10, 10, 10, 0.95);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            cursor: pointer;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        nav a:hover, nav a.active {
-            color: var(--text-primary);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s;
-        }
-
-        nav a:hover::after, nav a.active::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stars {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(2px 2px at 20% 30%, white, transparent),
-                        radial-gradient(2px 2px at 60% 70%, white, transparent),
-                        radial-gradient(1px 1px at 50% 50%, white, transparent),
-                        radial-gradient(1px 1px at 80% 10%, white, transparent);
-            background-size: 200% 200%;
-            animation: twinkle 8s ease-in-out infinite;
-            opacity: 0.3;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.5; }
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            max-width: 900px;
-            padding: 0 2rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #999999);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: slideUp 1s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            letter-spacing: 3px;
-            margin-bottom: 3rem;
-            animation: slideUp 1s ease 0.2s backwards;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-            animation: slideUp 1s ease 0.4s backwards;
-            border: 2px solid var(--accent);
-        }
-
-        .btn:hover {
-            background: transparent;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translate(-50%, 0); }
-            50% { transform: translate(-50%, 10px); }
-        }
-
-        .mouse {
-            width: 24px;
-            height: 40px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            position: relative;
-        }
-
-        .wheel {
-            width: 4px;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 2px;
-            position: absolute;
-            top: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: scroll 1.5s infinite;
-        }
-
-        @keyframes scroll {
-            0% { opacity: 1; top: 8px; }
-            100% { opacity: 0; top: 20px; }
-        }
-
-        /* Section Styles */
-        section {
-            padding: 8rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 5rem;
-        }
-
-        .section-label {
-            font-size: 0.85rem;
-            color: var(--accent);
-            letter-spacing: 3px;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .section-title h2 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        /* Latest Release */
-        .release-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-        }
-
-        .release-cover {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            aspect-ratio: 1;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        .release-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .release-cover:hover img {
-            transform: scale(1.05);
-        }
-
-        .release-details {
-            font-size: 1.1rem;
-            line-height: 2;
-            color: var(--text-secondary);
-        }
-
-        .release-details strong {
-            color: var(--text-primary);
-        }
-
-        .streaming-links {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .stream-link {
-            padding: 0.8rem 1.5rem;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            text-decoration: none;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-        }
-
-        .stream-link:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* Tour Section */
-        .tour-item {
-            background: var(--bg-secondary);
-            padding: 2.5rem;
-            border-radius: 20px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s;
-        }
-
-        .tour-item:hover {
-            border-color: var(--accent);
-            transform: translateX(10px);
-        }
-
-        .tour-venue h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .tour-venue p {
-            color: var(--text-secondary);
-        }
-
-        /* Video Showcase */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .video-item {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 16/9;
-        }
-
-        .video-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .video-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: rgba(99, 102, 241, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .video-item:hover .play-button {
-            background: var(--accent);
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        .play-button::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 15px 0 15px 25px;
-            border-color: transparent transparent transparent white;
-            margin-left: 5px;
-        }
-
-        /* Members Grid */
-        .members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .member-card {
-            background: var(--bg-secondary);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .member-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-        }
-
-        .member-photo {
-            aspect-ratio: 1;
-            overflow: hidden;
-        }
-
-        .member-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .member-card:hover .member-photo img {
-            transform: scale(1.1);
-        }
-
-        .member-info {
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .member-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .member-info p {
-            color: var(--accent);
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-        }
-
-        /* Instagram Grid */
-        .instagram-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        .instagram-item {
-            aspect-ratio: 1;
-            border-radius: 10px;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .instagram-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .instagram-item:hover img {
-            transform: scale(1.1);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg-secondary);
-            padding: 5rem 5%;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-bottom: 3rem;
-        }
-
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            transition: all 0.3s;
-        }
-
-        .social-icon:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .contact-info {
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
-        }
-
-        .copyright {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            max-width: 90%;
-            max-height: 90vh;
-            border-radius: 10px;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 3rem;
-            color: white;
-            cursor: pointer;
-            z-index: 10001;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-
-            .release-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .tour-item {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
-            }
-
-            section {
-                padding: 5rem 5%;
-            }
-        }
-    </style>
-</head>
-<body>
+    <meta name="description" content="TheMoonBand албан ёсны вэб сайт" />
+    <meta name="keywords" content="TheMoonBand, Монгол, хөгжмийн хамтлаг" />
+    <meta name="author" content="TheMoonBand" />
+    <link
+      rel="icon"
+      href="./images/crescent-moon-svgrepo-com.png"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="./css/band.css" />
+    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lora:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="./js/stars.js"></script>
+    <script src="./js/dark.js"></script>
+    <script src="./js/nav.js"></script>
+    <script src="./js/video.js"></script>
+  </head>
+  <body>
     <div class="preloader">
-        <div class="loader"></div>
+      <div class="loader"></div>
     </div>
 
-    <header id="header">
-        <div class="nav-container">
-            <div class="logo">TheMoonBand</div>
-            <nav>
-                <ul>
-                    <li><a href="#home" class="active">НҮҮР</a></li>
-                    <li><a href="#tours">ТОГЛОЛТУУД</a></li>
-                    <li><a href="#videos">КЛИПҮҮД</a></li>
-                    <li><a href="#photos">ГЭРЭЛ ЗУРАГ</a></li>
-                    <li><a href="#contact">ХОЛБОО БАРИХ</a></li>
-                </ul>
-            </nav>
+    <header class="site-header">
+      <div class="container">
+        <div class="logo">TheMoonBand</div>
+        <nav class="main-nav">
+          <ul class="nav-links">
+            <li><a href="#home" class="active">НҮҮР</a></li>
+            <li><a href="#tours">ТОГЛОЛТУУД</a></li>
+            <li><a href="#videos">КЛИПҮҮД</a></li>
+            <li><a href="#photos">ГЭРЭЛ ЗУРАГ</a></li>
+            <li><a href="#contact">ХОЛБОО БАРИХ</a></li>
+          </ul>
+        </nav>
+
+        <button
+          class="dark-mode-toggle"
+          id="theme-toggle"
+          aria-label="Гэрэл/Харанхуй горим"
+        >
+          <div class="dark-mode-toggle-icon"></div>
+        </button>
+
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
+      </div>
     </header>
 
     <main>
-        <section class="hero" id="home">
-            <div class="stars"></div>
-            <div class="hero-content">
-                <h1>The Moon Band</h1>
-                <div class="hero-subtitle">АМЬД ХӨГЖИМИЙН ХАМТЛАГ</div>
-                <a href="https://youtu.be/stAVhWLzgpA?si=fTPcE_fpzDdSeUrb" class="btn">СОНСОХ</a>
-            </div>
-            <div class="scroll-indicator">
-                <div class="mouse">
-                    <div class="wheel"></div>
-                </div>
-            </div>
-        </section>
+      <section class="hero" id="home">
+        <div class="stars">
+          <!-- Stars will be generated by JavaScript -->
+        </div>
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>The Moon Band</h1>
+            <div class="release-info">АМЬД ХӨГЖИМИЙН ХАМТЛАГ</div>
+            <a
+              href="https://youtu.be/stAVhWLzgpA?si=fTPcE_fpzDdSeUrb"
+              class="btn"
+              >СОНСОХ</a
+            >
+          </div>
+        </div>
+        <div class="scroll-down">
+          <div class="mouse">
+            <div class="wheel"></div>
+          </div>
+          <div>
+            <span class="scroll-text">ДООШ ГҮЙЛГЭ</span>
+          </div>
+        </div>
+      </section>
 
-        <section id="latest">
-            <div class="section-title">
-                <span class="section-label">ШИНЭ БҮТЭЭЛ</span>
-                <h2>СҮҮЛИЙН ГЭРЭЛ</h2>
+      <section class="latest-release">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">ШИНЭ БҮТЭЭЛ</span>
+            <h2>СҮҮЛИЙН ГЭРЭЛ</h2>
+          </div>
+          <div class="release-container">
+            <div class="release-cover">
+              <img src="./images/banddoor.jpg" alt="Гэрэл" />
             </div>
-            <div class="release-container">
-                <div class="release-cover">
-                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800" alt="Album Cover">
-                </div>
-                <div class="release-details">
-                    <p>
-                        <strong>Music by:</strong> Sodoo - <em>"The Moon"</em><br>
-                        <strong>Lyric by:</strong> Sodoo (pianist)<br>
-                        <strong>Music programming:</strong> Belgee Hummer<br>
-                        <strong>Recorded by:</strong> Belgee Hummer at @SonosMedia<br>
-                        <strong>Mix & Mastering:</strong> Belgee Hummer
-                    </p>
-                    <div class="streaming-links">
-                        <a href="https://www.youtube.com/watch?v=stAVhWLzgpA" class="stream-link">YOUTUBE</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            <div class="release-details">
+              <p>
+                <strong>Music by:</strong> Sodoo - <em>"The Moon"</em><br />
+                <strong>Lyric by:</strong> Sodoo <span>(pianist)</span><br />
+                <strong>Music programming:</strong> Belgee Hummer<br />
+                <strong>Recorded by:</strong> Belgee Hummer at
+                <span>@SonosMedia</span><br />
+                <strong>Mix & Mastering:</strong> Belgee Hummer
+              </p>
 
-        <section id="tours">
-            <div class="section-title">
-                <span class="section-label">ТОГЛОЛТУУД</span>
-                <h2>Үнийн Санал</h2>
+              <div class="streaming-links">
+                <a href="https://www.youtube.com/watch?v=stAVhWLzgpA" class="stream-link">YOUTUBE</a>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="tour-dates" id="tours">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small"></span>
+            <h2>Үнийн Санал</h2>
+          </div>
+          <div class="tour-list">
             <div class="tour-item">
-                <div class="tour-venue">
-                    <h3>Бүх төрлийн арга хэмжээ</h3>
-                    <p>Танд хувийн буюу албан ёсны арга хэмжээнд манай хамтлагийг урих сонирхол байна уу?</p>
-                </div>
-                <a href="#contact" class="btn">Холбогдох</a>
+              <div class="tour-venue">
+                <h3>Бүх төрлийн арга хэмжээ</h3>
+                <p>
+                  Танд хувийн буюу албан ёсны арга хэмжээнд манай хамтлагийг
+                  урих сонирхол байна уу? Та доорх слайдерыг ашиглан үнийн санал
+                  авах боломжтой.
+                </p>
+              </div>
+              <div class="tour-action">
+                <a href="#contact" class="btn-tickets">Холбогдох</a>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
+      <section class="video-showcase" id="videos">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">БИЧЛЭГҮҮД</span>
+            <h2>ТОГЛОЛТУУД</h2>
+          </div>
+          <div class="video-container">
+            <div
+              class="video-item"
+              data-video="./images/IMG_3120.MOV"
+            >
+              <img
+                src="images/bandpicture.jpg"
+                alt="Гэрэл Дуу"
+                class="video-thumbnail"
+              />
+              <div class="video-play-button">
+                <div class="video-play-icon"></div>
+              </div>
+            </div>
+            <div
+              class="video-item"
+              data-video="./images/IMG_3117.MOV"
+            >
+              <img
+                src="images/bandpicture2.jpg"
+                alt="Тэнгэрийн Гэрэл"
+                class="video-thumbnail"
+              />
+              <div class="video-play-button">
+                <div class="video-play-icon"></div>
+              </div>
+            </div>
+            <div
+              class="video-item"
+              data-video="https://www.youtube.com/embed/stAVhWLzgpA"
+            >
+              <img
+                src="images/in1.jpg"
+                alt="Хүслийн Тэнгэр"
+                class="video-thumbnail"
+              />
+              <div class="video-play-button">
+                <div class="video-play-icon"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="video-overlay">
+          <div class="close-video">×</div>
+          <video
+            src=""
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></video>
+        </div>
+      </section>
+      <section class="band-members">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">БИДНИЙ ТУХАЙ</span>
+            <h2>ГИШҮҮД</h2>
+          </div>
 
-        <section id="videos">
-            <div class="section-title">
-                <span class="section-label">БИЧЛЭГҮҮД</span>
-                <h2>ТОГЛОЛТУУД</h2>
+          <div class="members-grid">
+            <!-- Member 1 -->
+            <div class="member-card">
+              <div class="member-card-inner">
+                <div class="member-front">
+                  <div class="member-photo">
+                    <img src="/images/singer.jpeg" alt="Батболд" />
+                  </div>
+                  <h3>БАТКА</h3>
+                  <p>ДУУЧИН</p>
+                </div>
+                <div class="member-back">
+                  <h3>БАТКА</h3>
+                  <p>
+                    Хамтлагийн үндсэн дуучин.
+                  </p>
+                  <div class="member-socials">
+                    <a href="https://www.instagram.com/batka_____/" class="social-icon">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="video-grid">
-                <div class="video-item">
-                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800" alt="Video 1">
-                    <div class="play-button"></div>
+            <div class="member-card">
+              <div class="member-card-inner">
+                <div class="member-front">
+                  <div class="member-photo">
+                    <img src="/images/guitar.jpeg" alt="Батболд" />
+                  </div>
+                  <h3>ЭНХБАЯСГАЛАН</h3>
+                  <p>ГИТАР</p>
                 </div>
-                <div class="video-item">
-                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800" alt="Video 2">
-                    <div class="play-button"></div>
+                <div class="member-back">
+                  <h3>БАТБОЛД</h3>
+                  <p>
+                    Хамтлагийн үндсэн гитарчин.
+                  </p>
+                  <div class="member-socials">
+                    <a href="https://www.instagram.com/kh_baysa/" class="social-icon">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
-                <div class="video-item">
-                    <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?w=800" alt="Video 3">
-                    <div class="play-button"></div>
-                </div>
+              </div>
             </div>
-        </section>
+            <div class="member-card">
+              <div class="member-card-inner">
+                <div class="member-front">
+                  <div class="member-photo">
+                    <img src="/images/bass.jpeg" alt="Батболд" />
+                  </div>
+                  <h3>ЦЭКҮ</h3>
+                  <p> БАСС ГИТАР</p>
+                </div>
+                <div class="member-back">
+                  <h3>ЦЭКҮ</h3>
+                  <p>
+                    Хамтлагийн үндсэн басс гитарчин.
+                  </p>
+                  <div class="member-socials">
+                    <a href="https://www.instagram.com/tsekvvv__/" class="social-icon">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="member-card">
+              <div class="member-card-inner">
+                <div class="member-front">
+                  <div class="member-photo">
+                    <img src="/images/ebo.jpeg" alt="зураг" />
+                  </div>
+                  <h3>ЭНХБОЛД</h3>
+                  <p>БӨМБӨР</p>
+                </div>
+                <div class="member-back">
+                  <h3>ЭНХБОЛД</h3>
+                  <p>
+                    Хамтлагийн үндсэн бөмбөрчин.
+                  </p>
+                  <div class="member-socials">
+                    <a href="https://www.instagram.com/drumenkhbold/" class="social-icon">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="member-card">
+              <div class="member-card-inner">
+                <div class="member-front">
+                  <div class="member-photo">
+                    <img src="/images/piano.jpeg" alt="Батболд" />
+                  </div>
+                  <h3>СОДБИЛЭГ</h3>
+                  <p>ТӨГӨЛДӨР ХУУР</p>
+                </div>
+                <div class="member-back">
+                  <h3>СОДБИЛЭГ</h3>
+                  <p>
+                    Хамтлагийн үндсэн төгөлдөр хуурч.
+                  </p>
+                  <div class="member-socials">
+                    <a href="https://www.instagram.com/sodbilegn_/" class="social-icon">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <section id="members">
-            <div class="section-title">
-                <span class="section-label">БИДНИЙ ТУХАЙ</span>
-                <h2>ГИШҮҮД</h2>
+      <section class="about-band">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">ТАНИЛЦУУЛГА</span>
+            <h2>The Moon Band</h2>
+          </div>
+          <div class="about-content">
+            <div class="about-image">
+              <img src="images/bandpicture2.jpg" alt="Moonband" />
             </div>
-            <div class="members-grid">
-                <div class="member-card">
-                    <div class="member-photo">
-                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400" alt="Singer">
-                    </div>
-                    <div class="member-info">
-                        <h3>БАТКА</h3>
-                        <p>ДУУЧИН</p>
-                    </div>
-                </div>
-                <div class="member-card">
-                    <div class="member-photo">
-                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400" alt="Guitarist">
-                    </div>
-                    <div class="member-info">
-                        <h3>ЭНХБАЯСГАЛАН</h3>
-                        <p>ГИТАР</p>
-                    </div>
-                </div>
-                <div class="member-card">
-                    <div class="member-photo">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Bassist">
-                    </div>
-                    <div class="member-info">
-                        <h3>ЦЭКҮ</h3>
-                        <p>БАСС ГИТАР</p>
-                    </div>
-                </div>
-                <div class="member-card">
-                    <div class="member-photo">
-                        <img src="https://images.unsplash.com/photo-1506794778225-2e8ed7fc42f0?w=400" alt="Drummer">
-                    </div>
-                    <div class="member-info">
-                        <h3>ЭНХБОЛД</h3>
-                        <p>БӨМБӨР</p>
-                    </div>
-                </div>
-                <div class="member-card">
-                    <div class="member-photo">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400" alt="Pianist">
-                    </div>
-                    <div class="member-info">
-                        <h3>СОДБИЛЭГ</h3>
-                        <p>ТӨГӨЛДӨР ХУУР</p>
-                    </div>
-                </div>
+            <div class="about-text">
+              <p>
+                The Moon Band нь 2018 онд байгуулагдсан Монголын амьд хөгжмийн хамтлаг.
+              </p>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <section id="photos">
-            <div class="section-title">
-                <span class="section-label">ИНСТАГРАМ</span>
-                <h2>@TheMoonBand</h2>
-            </div>
-            <div class="instagram-grid">
-                <div class="instagram-item">
-                    <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=600" alt="Band Photo 1">
-                </div>
-                <div class="instagram-item">
-                    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600" alt="Band Photo 2">
-                </div>
-                <div class="instagram-item">
-                    <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?w=600" alt="Band Photo 3">
-                </div>
-                <div class="instagram-item">
-                    <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=600" alt="Band Photo 4">
-                </div>
-            </div>
-            <div style="text-align: center;">
-                <a href="https://www.instagram.com/the.moonband/" class="btn">ДАГАХ</a>
-            </div>
-        </section>
+      <section class="instagram-feed" id="photos">
+        <div class="container">
+          <div class="section-title">
+            <span class="title-small">ИНСТАГРАМ</span>
+            <a href="https://www.instagram.com/the.moonband/?hl=en"
+              ><h2>@TheMoonBand</h2></a
+            >
+          </div>
+          <div class="instagram-grid">
+          <a href="#" class="instagram-item" onclick="openModal('images/in1.jpg'); return false;">
+          <img src="images/in1.jpg" alt="Band Picture" />
+          </a>
+          <a href="#" class="instagram-item" onclick="openModal('images/in3.jpg'); return false;">
+          <img src="images/in3.jpg" alt="Band Picture" />
+          </a>
+          <a href="#" class="instagram-item" onclick="openModal('images/band.jpeg'); return false;">
+          <img src="images/band.jpeg" alt="Band Picture" />
+          </a>
+          <a href="#" class="instagram-item" onclick="openModal('images/bandpicture.jpg'); return false;">
+          <img src="images/bandpicture.jpg" alt="Band Picture" />
+          </a>
+
+          <div id="modal" class="modal" onclick="closeModal()">
+          <span class="close">&times;</span>
+          <img class="modal-content" id="modalImage">
+          </div>
+          </div>
+          <div class="instagram-follow">
+            <a
+              href="https://www.instagram.com/the.moonband/?hl=en"
+              class="btn btn-outline"
+              >ДАГАХ</a>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer id="contact">
+    <footer class="site-footer" id="contact">
+      <div class="container">
         <div class="footer-content">
+          <div class="footer-top">
             <div class="footer-logo">TheMoonBand</div>
             <div class="social-links">
-                <a href="https://www.instagram.com/the.moonband/" class="social-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z" fill="currentColor"/>
-                        <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z" fill="currentColor"/>
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z" fill="currentColor"/>
-                    </svg>
-                </a>
-                <a href="https://www.youtube.com/@themoonofficial20" class="social-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M5 7H19C19.5523 7 20 7.44771 20 8V16C20 16.5523 19.5523 17 19 17H5C4.44772 17 4 16.5523 4 16V8C4 7.44772 4.44772 7 5 7ZM2 8C2 6.34315 3.34315 5 5 5H19C20.6569 5 22 6.34315 22 8V16C22 17.6569 20.6569 19 19 19H5C3.34315 19 2 17.6569 2 16V8ZM10 9L14 12L10 15V9Z" fill="currentColor"/>
-                    </svg>
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=100094429780661" class="social-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path d="M9.19795 21.5H13.198V13.4901H16.8021L17.198 9.50977H13.198V7.5C13.198 6.94772 13.6457 6.5 14.198 6.5H17.198V2.5H14.198C11.4365 2.5 9.19795 4.73858 9.19795 7.5V9.50977H7.19795L6.80206 13.4901H9.19795V21.5Z" fill="currentColor"/>
-                    </svg>
-                </a>
+              <a href="https://www.instagram.com/the.moonband/" class="social-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7ZM9 12C9 13.6569 10.3431 15 12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M5 1C2.79086 1 1 2.79086 1 5V19C1 21.2091 2.79086 23 5 23H19C21.2091 23 23 21.2091 23 19V5C23 2.79086 21.2091 1 19 1H5ZM19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </a>
+              <a href="https://www.youtube.com/@themoonofficial20" class="social-icon"
+                ><svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"w
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M5 7H19C19.5523 7 20 7.44771 20 8V16C20 16.5523 19.5523 17 19 17H5C4.44772 17 4 16.5523 4 16V8C4 7.44772 4.44772 7 5 7ZM2 8C2 6.34315 3.34315 5 5 5H19C20.6569 5 22 6.34315 22 8V16C22 17.6569 20.6569 19 19 19H5C3.34315 19 2 17.6569 2 16V8ZM10 9L14 12L10 15V9Z"
+                    fill="currentColor"
+                  /></svg></a>
+              <a href="https://www.facebook.com/profile.php?id=100094429780661" class="social-icon"
+                ><svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.19795 21.5H13.198V13.4901H16.8021L17.198 9.50977H13.198V7.5C13.198 6.94772 13.6457 6.5 14.198 6.5H17.198V2.5H14.198C11.4365 2.5 9.19795 4.73858 9.19795 7.5V9.50977H7.19795L6.80206 13.4901H9.19795V21.5Z"
+                    fill="currentColor"
+                  /></svg></a>
             </div>
+          </div>
+
+          <div class="footer-middle">
+            <div class="footer-nav">
+              <a href="#">НҮҮР</a>
+              <a href="#">ТОГЛОЛТУУД</a>
+              <a href="#">ЦОМГУУД</a>
+              <a href="#">КЛИПҮҮД</a>
+              <a href="#">ГЭРЭЛ ЗУРАГ</a>
+              <a href="#contact">ХОЛБОО БАРИХ</a>
+            </div>
+          </div>
+
+          <div class="footer-bottom">
             <div class="contact-info">
-                <p><strong>ДУУДЛАГА:</strong> +976 8802 6658</p>
-                <p
+              <div class="contact-item">
+                <div class="contact-icon"></div>
+                <p id="utas"><strong>ДУУДЛАГА:</strong> +976 8802 6658</p>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon"></div>
+                <p><strong>ХАЯГ:</strong> press@themoonband.com</p>
+              </div>
+            </div>
+            <div class="copyright">
+              <p>&copy; 2025 TheMoonBand. БҮХ ЭРХ ХАМГААЛАГДСАН.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script>
+    const tracks = document.querySelectorAll(".track");
+    const audio = document.getElementById("audio-player");
+
+    tracks.forEach((track) => {
+      track.addEventListener("click", () => {
+        const src = track.getAttribute("data-src");
+        if (src) {
+          audio.src = src;
+          audio.style.display = "block";
+          audio.play();
+          track.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    });
+  </script>
+  <script>
+    const ranges = document.querySelectorAll(".price-range");
+    ranges.forEach((range) => {
+      range.addEventListener("input", () => {
+        const priceDisplay =
+          range.parentElement.querySelector(".selected-price");
+        priceDisplay.textContent = `Үнэ: ${Number(
+          range.value
+        ).toLocaleString()}₮`;
+      });
+    });
+  </script>
+  <script>
+  function openModal(imageSrc) {
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById('modalImage').src = imageSrc;
+  }
+
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+</script>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const videoItems = document.querySelectorAll(".video-item");
+    const videoOverlay = document.querySelector(".video-overlay");
+    const overlayVideo = document.querySelector(".video-overlay video");
+    const closeVideoBtn = document.querySelector(".close-video");
+
+    videoItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const videoSrc = item.getAttribute("data-video");
+
+        // YouTube видео бол iframe ашиглана
+        if (videoSrc.includes("youtube.com")) {
+          const iframe = document.createElement("iframe");
+          iframe.src = videoSrc + "?autoplay=1";
+          iframe.allow =
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+          iframe.allowFullscreen = true;
+          iframe.style.width = "80%";
+          iframe.style.maxWidth = "900px";
+          iframe.style.aspectRatio = "16/9";
+          overlayVideo.replaceWith(iframe);
+        } else {
+          overlayVideo.src = videoSrc;
+          overlayVideo.load();
+          overlayVideo.play();
+        }
+
+        videoOverlay.classList.add("active");
+      });
+    });
+
+    closeVideoBtn.addEventListener("click", () => {
+      videoOverlay.classList.remove("active");
+
+      const iframe = document.querySelector(".video-overlay iframe");
+      if (iframe) {
+        iframe.remove();
+        const newVideo = document.createElement("video");
+        newVideo.setAttribute("controls", "");
+        newVideo.style.width = "80%";
+        newVideo.style.maxWidth = "900px";
+        newVideo.style.aspectRatio = "16/9";
+        videoOverlay.appendChild(newVideo);
+      } else {
+        overlayVideo.pause();
+        overlayVideo.currentTime = 0;
+      }
+    });
+  });
+</script>
+
+</html>
